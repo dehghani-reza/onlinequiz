@@ -4,6 +4,7 @@ import ir.maktab.onlinequiz.enums.AccountStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -26,6 +27,10 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
+
+    private Date createAccountDate;
+
+    private Date lastLoginDate;
 
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)

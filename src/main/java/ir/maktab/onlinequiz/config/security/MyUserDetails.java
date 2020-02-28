@@ -1,6 +1,6 @@
 package ir.maktab.onlinequiz.config.security;
 
-import ir.maktab.java32.projects.onlineexamsmanagement.modules.usermanagement.features.accountmanagement.adapter.persistance.entities.AccountJpaEntity;
+import ir.maktab.onlinequiz.models.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,25 +16,25 @@ public class MyUserDetails implements UserDetails {
     private boolean active;
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
-    public MyUserDetails(AccountJpaEntity account) {
+    public MyUserDetails(Account account) {
         this.username = account.getUsername();
         this.password = account.getPassword();
         this.active = account.isActive();
 
         account.getRoles()
                 .forEach(
-                        roleJpaEntity -> {
-                            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(roleJpaEntity.getRoleType().toString());
+                        role -> {
+                            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRoleType().toString());
                             authorities.add(grantedAuthority);
                         }
                 );
 
         account.getRoles()
                 .stream()
-                .flatMap(roleJpaEntity -> roleJpaEntity.getPrivileges().stream())
+                .flatMap(role -> role.getPrivileges().stream())
                 .forEach(
-                        privilegeJpaEntity -> {
-                            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(privilegeJpaEntity.getPrivilegeTypes().toString());
+                        privilege -> {
+                            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(privilege.getPrivilegeTypes().toString());
                             authorities.add(grantedAuthority);
                         }
                 );
