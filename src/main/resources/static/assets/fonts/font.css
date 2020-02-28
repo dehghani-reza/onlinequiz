@@ -1,0 +1,18 @@
+@font-face {
+    font-family: MyRoboto;
+    src: url("../../assets/fonts/en/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: MyOpenSans;
+    src: url("../../assets/fonts/en/Open_Sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: MyIranSans;
+    src: url("../../assets/fonts/fa/IranSans/iransansweb.ttf");
+}
+
+body, html {
+    font-family: 'MyIranSans', 'MyOpenSans', serif;
+}
