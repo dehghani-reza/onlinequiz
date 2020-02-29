@@ -27,33 +27,42 @@ $(document).ready(function () {
         event.preventDefault();
         event.stopPropagation();
 
-        let loginFormClass = document.getElementById("registerForm").getAttribute('class');
+        let username = $("#username").val();
+        let password = $("#password").val();
+        let conf = $("#confirmPassword").val();
+        let role = $('#role option:selected').val();
 
-        if(loginFormClass.includes('was-validated')){
+        if ($('#invalidCheck').is(":checked")
+            && username !== ''
+            && password !== ''
+            && conf !== ''
+            && role !== ''
+        ) {
             register();
         }
+
 
     });
 
 });
 
 function register() {
-        const registerAccountByGuestCommand = {
-            "username": $("#username").val(),
-            "password": $("#password").val(),
-            "role": $('#role option:selected').val()
-        };
+    const registerAccountByGuestCommand = {
+        "username": $("#username").val(),
+        "password": $("#password").val(),
+        "role": $('#role option:selected').val()
+    };
 
-        $.ajax({
-            url: serverUrl() + "/register",
-            type: "POST",
-            data: JSON.stringify(registerAccountByGuestCommand),
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                showAlert('success', result);
-            },
-            error: function (errorMessage) {
-                showAlert('danger', errorMessage.responseJSON.message);
-            }
-        })
+    $.ajax({
+        url: serverUrl() + "/register",
+        type: "POST",
+        data: JSON.stringify(registerAccountByGuestCommand),
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            showAlert('success', 'اطلاغات شما با موفقیت ثبت گردید. لطفا وارد شوید');
+        },
+        error: function (errorMessage) {
+            showAlert('danger', errorMessage.responseJSON.message);
+        }
+    })
 }

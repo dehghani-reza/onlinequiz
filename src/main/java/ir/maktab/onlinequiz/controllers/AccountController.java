@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/")
+@RequestMapping
 public class AccountController {
 
     final AccountService accountService;
@@ -20,13 +20,13 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     private RegisterAccountOutcome register(@RequestBody RegisterAccountDto registerAccountDto) throws UsernameExistInSystemException {
         return accountService.register(registerAccountDto);
     }
 
 
-    @PostMapping("login")
+    @PostMapping("/login")
     private LoginToAccountOutcome login(@RequestBody LoginAccountDto loginAccountDto) throws AccountNotFoundException {
         return accountService.login(loginAccountDto);
     }

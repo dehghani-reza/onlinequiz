@@ -5,9 +5,10 @@ $(document).ready(function () {
         event.preventDefault();
         event.stopPropagation();
 
-        let loginFormClass = document.getElementById("loginForm").getAttribute('class');
+        let username = $("#username").val();
+        let password = $("#password").val();
 
-        if(loginFormClass.includes('was-validated')){
+        if(username!=='' && password!==''){
             loginToAccount();
         }
     });
@@ -32,31 +33,30 @@ function loginToAccount() {
         },
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            console.log("success")
-            // let guest = false;
-            //
-            // for (let i = 0; i < data.roles.length; i++) {
-            //     if (data.roles[i].roleType === "ROLE_GUEST") {
-            //         guest = true;
-            //         break;
-            //     }
-            // }
-            //
-            // if (guest) {
-            //     location.replace("https://www.guest.com")
-            // } else {
-            //     for (let i = 0; i < data.roles.length; i++) {
-            //         if (data.roles[i].roleType === "ROLE_STUDENT") {
-            //             location.replace("https://www.student.com")
-            //         }
-            //         if (data.roles[i].roleType === "ROLE_TEACHER") {
-            //             location.replace("https://www.teacher.com")
-            //         }
-            //         if (data.roles[i].roleType === "ROLE_MANAGER") {
-            //             location.replace("https://www.manager.com")
-            //         }
-            //     }
-            // }
+            let guest = false;
+
+            for (let i = 0; i < data.roles.length; i++) {
+                if (data.roles[i].roleType === "ROLE_GUEST") {
+                    guest = true;
+                    break;
+                }
+            }
+
+            if (guest) {
+                location.replace("https://www.guest.com")
+            } else {
+                for (let i = 0; i < data.roles.length; i++) {
+                    if (data.roles[i].roleType === "ROLE_STUDENT") {
+                        location.replace("https://www.student.com")
+                    }
+                    if (data.roles[i].roleType === "ROLE_TEACHER") {
+                        location.replace("https://www.teacher.com")
+                    }
+                    if (data.roles[i].roleType === "ROLE_MANAGER") {
+                        location.replace("https://www.manager.com")
+                    }
+                }
+            }
         },
         error: function (errorMessage) {
             showAlert("danger", 'اطلاعات وارد شده صحیح نمی باشد');
