@@ -63,6 +63,8 @@ public class AccountServiceImpl implements AccountService {
         if (account.isEmpty())
             throw new AccountNotFoundException("اطلاعات وارد شده صحبح نمی باشد");
 
+        account.get().setLastLoginDate(new Date());
+        accountDao.save(account.get());
         return new LoginToAccountOutcome(account.get().getUsername(),
                 account
                         .stream()

@@ -1,5 +1,5 @@
+let loginUsername = '';
 $(document).ready(function () {
-
     $("#loginForm").submit(function (event) {
         //stop submit the form, we will post it manually.
         event.preventDefault();
@@ -8,7 +8,7 @@ $(document).ready(function () {
         let username = $("#username").val();
         let password = $("#password").val();
 
-        if(username!=='' && password!==''){
+        if (username !== '' && password !== '') {
             loginToAccount();
         }
     });
@@ -33,6 +33,8 @@ function loginToAccount() {
         },
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+            loginUsername = data.username;
+            console.log(data.username);
             let guest = false;
 
             for (let i = 0; i < data.roles.length; i++) {
@@ -43,7 +45,7 @@ function loginToAccount() {
             }
 
             if (guest) {
-                location.replace("https://www.guest.com")
+                location.replace("/components/panels/guest/index/guest-panel.html?" + btoa( username + ":" + password))
             } else {
                 for (let i = 0; i < data.roles.length; i++) {
                     if (data.roles[i].roleType === "ROLE_STUDENT") {
@@ -63,5 +65,6 @@ function loginToAccount() {
         }
     });
 }
+
 
 

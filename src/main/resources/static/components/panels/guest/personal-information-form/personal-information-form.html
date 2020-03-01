@@ -1,0 +1,168 @@
+<form class="needs-validation" novalidate id="personalInformationForm">
+    <div class="form-row justify-content-center">
+
+        <h3 class="col-12 m-3">اطلاعات فردی</h3>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="firstName" placeholder="نام"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    نام نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="lastName" placeholder="نام خانوادگی"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    نام خانوادگی نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="fathersName" placeholder="نام پدر"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    نام پدر نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                </div>
+                <input type="text" class="form-control" id="nationalCode" placeholder="کد ملی"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    کد ملی نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-calendar-day"></i></span>
+                </div>
+                <input type="text" class="form-control" id="birthOfDate" placeholder="تاریخ تولد"
+                       aria-describedby="inputGroupPrepend" required onfocus="(this.type='date')">
+                <div class="invalid-feedback">
+                    تاریخ تولد نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                </div>
+                <input type="text" class="form-control" id="degreeOfEducation" placeholder="مدرک تحصیلی"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    مدرک تحصیلی نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <h3 class="col-12 m-3">اطلاعات تماس</h3>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-phone-volume"></i></span>
+                </div>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="تلفن ثابت"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    تلفن ثابت نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-mobile"></i></span>
+                </div>
+                <input type="text" class="form-control" id="cellPhoneNumber" placeholder="تلفن همراه"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    تلفن همراه نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" class="form-control" id="email" placeholder="ایمیل"
+                       aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    ایمیل نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-6 mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
+                </div>
+                <textarea class="form-control" id="address" placeholder="آدرس" required></textarea>
+                <div class="invalid-feedback">
+                    آدرس نمی تواند خالی باشد!
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary col-4" data-toggle="modal" data-target="#exampleModal">
+            ثبت اطلاعات
+        </button>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ثبت نهایی</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            کاربر گرامی توجه داشته باشید که پس از ثبت نهایی امکان تغییر وجود ندارد!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="personCompletion()">ثبت نهایی</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

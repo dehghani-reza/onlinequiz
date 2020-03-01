@@ -33,7 +33,7 @@ public class Account {
     private Date lastLoginDate;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Person person;
 
     private boolean active;

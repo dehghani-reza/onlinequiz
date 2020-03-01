@@ -45,12 +45,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/register").permitAll()
                 .antMatchers(
                         "/assets/",
                         "/components/login/js/login.js",
                         "/components/register/**",
-                        "/login"
+                        "/login",
+                        "/register"
                 ).permitAll()
                 .antMatchers(HttpMethod.GET).permitAll() // permit all html, css, js
                 .anyRequest().authenticated()
@@ -58,7 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .formLogin().disable()
-                .logout().disable()
+                .logout()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
