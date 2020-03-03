@@ -1,13 +1,19 @@
 package ir.maktab.onlinequiz.controllers;
 
 import ir.maktab.onlinequiz.dto.LoginAccountDto;
+import ir.maktab.onlinequiz.dto.NewUsersIdsList;
 import ir.maktab.onlinequiz.dto.RegisterAccountDto;
 import ir.maktab.onlinequiz.exceptions.AccountNotFoundException;
 import ir.maktab.onlinequiz.exceptions.UsernameExistInSystemException;
+import ir.maktab.onlinequiz.models.Account;
 import ir.maktab.onlinequiz.outcome.LoginToAccountOutcome;
 import ir.maktab.onlinequiz.outcome.RegisterAccountOutcome;
 import ir.maktab.onlinequiz.services.AccountService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -25,9 +31,40 @@ public class AccountController {
         return accountService.register(registerAccountDto);
     }
 
-
     @PostMapping("/login")
     private LoginToAccountOutcome login(@RequestBody LoginAccountDto loginAccountDto) throws AccountNotFoundException {
         return accountService.login(loginAccountDto);
     }
+
+    @GetMapping("/accounts/{pageNo}/{pageSize}")
+    public Page<Account> getPaginatedAwaitingApprovalAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
+        return accountService.paginatedAwaitingApprovalAccounts(pageNo, pageSize);
+    }
+
+    @PostMapping("/new-user-list/accept-all-selected")
+    private void acceptAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
+        accountService.acceptAllSelected(newUsersIdsList.getListId()
+                .stream()
+                .map(Long::parseLong)
+                .collect(Collectors.toList()));
+    }
+
+    @PostMapping("/new-user-list/accept-all")
+    private void acceptAll() {
+        accountService.acceptAll();
+    }
+
+    @PostMapping("/new-user-list/dismiss-all-selected")
+    private void dismissAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
+        accountService.dismissAllSelected(newUsersIdsList.getListId()
+                .stream()
+                .map(Long::parseLong)
+                .collect(Collectors.toList()));
+    }
+
+    @PostMapping("/new-user-list/dismiss-all")
+    private void dismissAll() {
+        accountService.dismissAll();
+    }
+
 }

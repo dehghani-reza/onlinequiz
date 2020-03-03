@@ -1,5 +1,6 @@
 package ir.maktab.onlinequiz.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Communication {
 
     private String address;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "communication")
     private Person person;
 }

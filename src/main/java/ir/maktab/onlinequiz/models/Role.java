@@ -1,5 +1,6 @@
 package ir.maktab.onlinequiz.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.maktab.onlinequiz.enums.RoleTypes;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleTypes roleType;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Collection<Account> accounts;
 

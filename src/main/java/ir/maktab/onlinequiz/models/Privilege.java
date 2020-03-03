@@ -1,5 +1,6 @@
 package ir.maktab.onlinequiz.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.maktab.onlinequiz.enums.PrivilegeTypes;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Privilege {
     @Enumerated(EnumType.STRING)
     private PrivilegeTypes privilegeTypes;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "privileges")
     private Set<Role> roles;
 }

@@ -1,5 +1,6 @@
 package ir.maktab.onlinequiz.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Person {
 
     private String degreeOfEducation;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "person")
     private Account account;
 

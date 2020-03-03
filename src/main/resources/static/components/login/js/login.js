@@ -34,7 +34,6 @@ function loginToAccount() {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             loginUsername = data.username;
-            console.log(data.username);
             let guest = false;
 
             for (let i = 0; i < data.roles.length; i++) {
@@ -55,7 +54,7 @@ function loginToAccount() {
                         location.replace("https://www.teacher.com")
                     }
                     if (data.roles[i].roleType === "ROLE_MANAGER") {
-                        location.replace("https://www.manager.com")
+                        location.replace("/components/panels/manager/index/manager-panel.html?" + btoa( username + ":" + password))
                     }
                 }
             }
