@@ -21,5 +21,7 @@ spring:
       enabled: true
       force: true
 
+
 server:
   port: 7777
+

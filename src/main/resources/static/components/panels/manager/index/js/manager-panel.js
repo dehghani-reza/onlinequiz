@@ -39,7 +39,7 @@ function getPassword(str) {
 
 // use the function:
 let url = getSecondPart(window.location.href);
-let decrypt = atob(url);
+let decrypt = atob(url.replace('#', ''));
 let usernameHeader = getUsername(decrypt);
 let passwordHeader = getPassword(decrypt);
 

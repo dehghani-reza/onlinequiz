@@ -9,11 +9,11 @@ function personCompletion() {
         "phoneNumber": $("#phoneNumber").val(),
         "cellPhoneNumber": $("#cellPhoneNumber").val(),
         "email": $("#email").val(),
-        "address": $("#address").val()
+        "address": $("#address").val(),
+        "birthOfDate":$("#birthOfDate").attr('data-gdate')
     };
-
     $.ajax({
-        url: serverUrl() + "/personCompletion",
+        url: serverUrl() + "/guest/personCompletion",
         type: "POST",
         data: JSON.stringify(submitInformation), headers: {
             "Authorization": "Basic " + btoa(usernameHeader + ":" + passwordHeader)

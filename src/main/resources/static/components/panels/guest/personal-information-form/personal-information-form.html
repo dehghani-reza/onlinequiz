@@ -62,13 +62,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-calendar-day"></i></span>
                 </div>
-                <input type="text" class="form-control" id="birthOfDate" placeholder="تاریخ تولد"
-                       aria-describedby="inputGroupPrepend" required onfocus="(this.type='date')">
+                <input type="text" class="form-control usage" id="birthOfDate" placeholder="تاریخ تولد"
+                       aria-describedby="inputGroupPrepend" required/>
                 <div class="invalid-feedback">
                     تاریخ تولد نمی تواند خالی باشد!
                 </div>
             </div>
         </div>
+
 
         <div class="form-group col-6 mt-3">
             <div class="input-group">
@@ -142,7 +143,8 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -158,7 +160,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="personCompletion()">ثبت نهایی</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="personCompletion()">
+                            ثبت نهایی
+                        </button>
                     </div>
                 </div>
             </div>
@@ -166,3 +170,8 @@
     </div>
 
 </form>
+
+
+<script src="/utils/persianCalender/jquery-1.10.1.min.js"></script>
+<script src="/utils/persianCalender/persianDatepicker.js"></script>
+<script src="/utils/persianCalender/persianCalendar.js"></script>

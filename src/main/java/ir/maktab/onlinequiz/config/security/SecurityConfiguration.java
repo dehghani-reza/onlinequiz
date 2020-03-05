@@ -47,12 +47,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/assets/",
+                        "/utils/**",
                         "/components/login/js/login.js",
                         "/components/register/**",
                         "/login",
                         "/register"
                 ).permitAll()
-                .antMatchers(HttpMethod.GET).permitAll() // permit all html, css, js
+                .antMatchers(HttpMethod.GET).permitAll()
+                .antMatchers("/manager/**").hasRole("MANAGER")
+                .antMatchers("/guest/**").hasRole("GUEST")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

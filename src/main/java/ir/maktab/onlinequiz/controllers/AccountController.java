@@ -10,9 +10,9 @@ import ir.maktab.onlinequiz.outcome.LoginToAccountOutcome;
 import ir.maktab.onlinequiz.outcome.RegisterAccountOutcome;
 import ir.maktab.onlinequiz.services.AccountService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,22 +26,22 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     private RegisterAccountOutcome register(@RequestBody RegisterAccountDto registerAccountDto) throws UsernameExistInSystemException {
         return accountService.register(registerAccountDto);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     private LoginToAccountOutcome login(@RequestBody LoginAccountDto loginAccountDto) throws AccountNotFoundException {
         return accountService.login(loginAccountDto);
     }
 
-    @GetMapping("/accounts/{pageNo}/{pageSize}")
+    @PostMapping("/manager/accounts/{pageNo}/{pageSize}")
     public Page<Account> getPaginatedAwaitingApprovalAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
         return accountService.paginatedAwaitingApprovalAccounts(pageNo, pageSize);
     }
 
-    @PostMapping("/new-user-list/accept-all-selected")
+    @PostMapping("/manager/new-user-list/accept-all-selected")
     private void acceptAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
         accountService.acceptAllSelected(newUsersIdsList.getListId()
                 .stream()
@@ -49,12 +49,12 @@ public class AccountController {
                 .collect(Collectors.toList()));
     }
 
-    @PostMapping("/new-user-list/accept-all")
+    @PostMapping("/manager/new-user-list/accept-all")
     private void acceptAll() {
         accountService.acceptAll();
     }
 
-    @PostMapping("/new-user-list/dismiss-all-selected")
+    @PostMapping("/manager/new-user-list/dismiss-all-selected")
     private void dismissAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
         accountService.dismissAllSelected(newUsersIdsList.getListId()
                 .stream()
@@ -62,7 +62,7 @@ public class AccountController {
                 .collect(Collectors.toList()));
     }
 
-    @PostMapping("/new-user-list/dismiss-all")
+    @PostMapping("/manager/new-user-list/dismiss-all")
     private void dismissAll() {
         accountService.dismissAll();
     }

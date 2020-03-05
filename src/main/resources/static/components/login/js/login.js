@@ -25,7 +25,7 @@ function loginToAccount() {
     };
 
     $.ajax({
-        url: "http://localhost:7777/login",
+        url: "http://localhost:7777/user/login",
         type: "POST",
         data: JSON.stringify(LoginToAccountByUserCommand),
         headers: {

@@ -18,4 +18,5 @@ public class PersonCompletionDto {
     String cellPhoneNumber;
     String email;
     String address;
+    String birthOfDate;
 }

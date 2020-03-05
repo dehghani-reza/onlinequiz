@@ -4,8 +4,8 @@ $("#new-users-list").ready(function () {
 
 function newUsersListFirstTime(pageNo, pageSize) {
     jQuery.ajax({
-        url: "http://localhost:7777/accounts/" + pageNo + "/" + pageSize,
-        type: "GET",
+        url: "http://localhost:7777/manager/accounts/" + pageNo + "/" + pageSize,
+        type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
             "Authorization": "Basic " + btoa(usernameHeader + ":" + passwordHeader)
@@ -22,8 +22,8 @@ function newUsersListFirstTime(pageNo, pageSize) {
 
 function newUsersListAfterFirstTime(pageNo, pageSize) {
     jQuery.ajax({
-        url: "http://localhost:7777/accounts/" + pageNo + "/" + pageSize,
-        type: "GET",
+        url: "http://localhost:7777/manager/accounts/" + pageNo + "/" + pageSize,
+        type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
             "Authorization": "Basic " + btoa(usernameHeader + ":" + passwordHeader)
@@ -41,7 +41,7 @@ function pagingTable(totalPage) {
     let middle = '';
     if (totalPage !== 0) {
         for (let i = 0; i < totalPage; i++) {
-            middle += '<li class="page-item"><a class="page-link" onclick="newUsersListAfterFirstTime(' + i + ',2)">' + (i + 1) + '</li>';
+            middle += '<li class="page-item"><a class="page-link" onclick="newUsersListAfterFirstTime(' + i + ',2)">' + (i+1) + '</li>';
         }
         $("#new-users-list-paging").append(middle);
     }
@@ -63,7 +63,7 @@ function prepareTable(data) {
         let phoneNumber = data[i].person.communication.phoneNumber;
         let cellPhoneNumber = data[i].person.communication.cellPhoneNumber;
         let address = data[i].person.communication.address;
-
+        var birthOfDate = new Date(data[i].person.birthOfDate);
         content += "<tr>";
         content += "<td class='text-center'><input class='form-check-input' type='checkbox' value='" + data[i].id + "'></td>";
         content += "<td>" + data[i].id + "</td>";
@@ -71,7 +71,7 @@ function prepareTable(data) {
         content += "<td >" + data[i].person.lastName + "</td>";
         content += "<td >" + data[i].person.fathersName + "</td>";
         content += "<td >" + data[i].person.nationalCode + "</td>";
-        content += "<td >" + data[i].person.birthOfDate + "</td>";
+        content += "<td >" + jDateFunctions.prototype.gregorian_to_jalali(birthOfDate) + "</td>";
         content += "<td >" + data[i].person.degreeOfEducation + "</td>";
         content += "<td >" + data[i].username + "</td>";
         content += "<td >" + role + "</td>";
@@ -118,7 +118,7 @@ function acceptAllSelected(checks) {
         "listId": checks
     };
     $.ajax({
-        url: serverUrl() + "/new-user-list/accept-all-selected",
+        url: serverUrl() + "/manager/new-user-list/accept-all-selected",
         type: "POST",
         data: JSON.stringify(newUsersIdsList),
         headers: {
@@ -128,7 +128,6 @@ function acceptAllSelected(checks) {
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
             loadPage('new-users-list');
-            newUsersListFirstTime(0, 2);
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -138,7 +137,7 @@ function acceptAllSelected(checks) {
 
 function acceptAll() {
     $.ajax({
-        url: serverUrl() + "/new-user-list/accept-all",
+        url: serverUrl() + "/manager/new-user-list/accept-all",
         type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
@@ -147,7 +146,6 @@ function acceptAll() {
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
             loadPage('new-users-list');
-            newUsersListFirstTime(0, 2);
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -161,7 +159,7 @@ function dismissAllSelected(checks) {
         "listId": checks
     };
     $.ajax({
-        url: serverUrl() + "/new-user-list/dismiss-all-selected",
+        url: serverUrl() + "/manager/new-user-list/dismiss-all-selected",
         type: "POST",
         data: JSON.stringify(newUsersIdsList),
         contentType: "application/json; charset=utf-8",
@@ -171,7 +169,6 @@ function dismissAllSelected(checks) {
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
             loadPage('new-users-list');
-            newUsersListFirstTime(0, 2);
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -181,7 +178,7 @@ function dismissAllSelected(checks) {
 
 function dismissAll() {
     $.ajax({
-        url: serverUrl() + "/new-user-list/dismiss-all",
+        url: serverUrl() + "/manager/new-user-list/dismiss-all",
         type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
@@ -190,7 +187,6 @@ function dismissAll() {
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
             loadPage('new-users-list');
-            newUsersListFirstTime(0, 2);
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);

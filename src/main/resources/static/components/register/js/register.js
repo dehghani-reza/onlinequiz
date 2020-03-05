@@ -54,7 +54,7 @@ function register() {
     };
 
     $.ajax({
-        url: serverUrl() + "/register",
+        url: serverUrl() + "/user/register",
         type: "POST",
         data: JSON.stringify(registerAccountByGuestCommand),
         contentType: "application/json; charset=utf-8",
