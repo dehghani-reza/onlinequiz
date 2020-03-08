@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class PersonCompletionDto {
+public class PersonCompletionDTO {
     String username;
     String firstName;
     String lastName;

@@ -1,6 +1,6 @@
 package ir.maktab.onlinequiz.outcome;
 
-import ir.maktab.onlinequiz.dto.RoleDto;
+import ir.maktab.onlinequiz.dto.RoleDTO;
 import lombok.Value;
 
 import java.util.Set;
@@ -8,5 +8,5 @@ import java.util.Set;
 @Value
 public class LoginToAccountOutcome {
     String username;
-    Set<RoleDto> roles;
+    Set<RoleDTO> roles;
 }

@@ -1,5 +1,162 @@
 <script src="/components/panels/manager/user-management/new-users-list/js/new-users-list.js" defer></script>
-<button type="button" class="btn btn-primary btn-lg">جست و جو<i class="fa fa-search"></i></button>
+<script src="/components/panels/manager/user-management/new-users-list/js/search-new-users-list.js" defer></script>
+<div class="container mb-3">
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target=".bd-example-modal-xl">
+                جست و جو<i
+                    class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-primary mr-3" onclick="loadPage('new-users-list')">نمایش همه</button>
+        </div>
+        <div class="col-4">
+            <select class="custom-select float-left left" id="pageSizeNewUsersList">
+                <option value="">تعداد نمایش در هر صفحه</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="50">75</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">جستوجو</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="searchNewUsersList">
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="usernameSearchNewUsersListInput"
+                                       placeholder="نام کاربری">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="firstNameSearchNewUsersListInput"
+                                       placeholder="نام">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="lastNameSearchNewUsersListInput"
+                                       placeholder="نام خانوادگی">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="fathersNameSearchNewUsersListInput"
+                                       placeholder="نام پدر">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="nationalCodeSearchNewUsersListInput"
+                                       placeholder="کد ملی">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="degreeOfEducationSearchNewUsersListInput"
+                                       placeholder="مدرک تحصیلی">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <select class="custom-select" id="roleSearchNewUsersListInput">
+                                <option value="">نوع حساب کاربری</option>
+                                <option value="ROLE_STUDENT">دانشجو</option>
+                                <option value="ROLE_TEACHER">استاد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-phone-volume"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="phoneNumberSearchNewUsersListInput"
+                                       placeholder="تلفن ثابت">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-mobile"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="cellPhoneNumberSearchNewUsersListInput"
+                                       placeholder="تلفن همراه">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                </div>
+                                <input type="email" class="form-control" id="emailSearchNewUsersListInput"
+                                       placeholder="ایمیل">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
+                                </div>
+                                <textarea class="form-control" id="addressSearchNewUsersListInput"
+                                          placeholder="آدرس"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-2 mt-3">
+                            <button type="button" class="btn btn-primary" onclick="searchNewUsersListFirstTime(0, 10)"
+                                    data-dismiss="modal">جست و جو
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <form onsubmit="return submitData()">
     <div id="new-users-list">
         <div class="table-responsive">
@@ -87,5 +244,4 @@
         </div>
     </div>
 </div>
-<script src="/utils/persianCalender/jquery-1.10.1.min.js"></script>
 <script src="/utils/persianCalender/persianDatepicker.js"></script>

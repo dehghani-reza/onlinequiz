@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class LoginAccountDto {
+public class LoginAccountDTO {
     String username;
 
     String password;

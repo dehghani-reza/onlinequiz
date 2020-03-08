@@ -7,10 +7,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class RegisterAccountDto {
-    private String username;
-
-    private String password;
-
-    private String role;
+public class RoleDTO {
+    String roleType;
 }

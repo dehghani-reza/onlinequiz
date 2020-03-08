@@ -1,8 +1,9 @@
 package ir.maktab.onlinequiz.services;
 
 import ir.maktab.onlinequiz.dao.*;
-import ir.maktab.onlinequiz.dto.LoginAccountDto;
-import ir.maktab.onlinequiz.dto.RegisterAccountDto;
+import ir.maktab.onlinequiz.dto.AccountSearchDTO;
+import ir.maktab.onlinequiz.dto.LoginAccountDTO;
+import ir.maktab.onlinequiz.dto.RegisterAccountDTO;
 import ir.maktab.onlinequiz.enums.AccountStatus;
 import ir.maktab.onlinequiz.enums.RoleTypes;
 import ir.maktab.onlinequiz.exceptions.AccountNotFoundException;
@@ -14,10 +15,10 @@ import ir.maktab.onlinequiz.models.Student;
 import ir.maktab.onlinequiz.models.Teacher;
 import ir.maktab.onlinequiz.outcome.LoginToAccountOutcome;
 import ir.maktab.onlinequiz.outcome.RegisterAccountOutcome;
+import ir.maktab.onlinequiz.specification.AccountSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,18 +31,20 @@ import java.util.stream.Collectors;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    final AccountDao accountDao;
-    final RoleDao roleDao;
-    final PersonDao personDao;
+    final AccountDAO accountDao;
+    final RoleDAO roleDao;
+    final PersonDAO personDao;
+    final AccountSpecification accountSpecification;
 
-    public AccountServiceImpl(AccountDao accountDao, RoleDao roleDao, PersonDao personDao, StudentDao studentDao, TeacherDao teacherDao) {
+    public AccountServiceImpl(AccountDAO accountDao, RoleDAO roleDao, PersonDAO personDao, StudentDAO studentDao, TeacherDAO teacherDao, AccountSpecification accountSpecification) {
         this.accountDao = accountDao;
         this.roleDao = roleDao;
         this.personDao = personDao;
+        this.accountSpecification = accountSpecification;
     }
 
     @Override
-    public RegisterAccountOutcome register(RegisterAccountDto registerAccountDto) throws UsernameExistInSystemException {
+    public RegisterAccountOutcome register(RegisterAccountDTO registerAccountDto) throws UsernameExistInSystemException {
         if (accountDao.findByUsername(registerAccountDto.getUsername()).isPresent())
             throw new UsernameExistInSystemException("کاربری با این نام کاربری در سیستم وجود دارد!");
         Person person = new Person();
@@ -67,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public LoginToAccountOutcome login(LoginAccountDto loginAccountDto) throws AccountNotFoundException {
+    public LoginToAccountOutcome login(LoginAccountDTO loginAccountDto) throws AccountNotFoundException {
         Optional<Account> account = accountDao.findByUsername(loginAccountDto.getUsername());
         if (account.isEmpty())
             throw new AccountNotFoundException("اطلاعات وارد شده صحبح نمی باشد");
@@ -162,5 +165,11 @@ public class AccountServiceImpl implements AccountService {
                 ))
                 .collect(Collectors.toList())
                 .forEach(accountDao::save);
+    }
+
+    @Override
+    public Page<Account> accountSearch(AccountSearchDTO accountSearchDTO, Pageable pageable) {
+        accountSpecification.setAccountSearchDTO(accountSearchDTO);
+        return accountDao.findAll(accountSpecification, pageable);
     }
 }

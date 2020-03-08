@@ -1,33 +1,32 @@
 package ir.maktab.onlinequiz.services;
 
-import ir.maktab.onlinequiz.dao.AccountDao;
-import ir.maktab.onlinequiz.dto.PersonCompletionDto;
+import ir.maktab.onlinequiz.dao.AccountDAO;
+import ir.maktab.onlinequiz.dao.PersonDAO;
+import ir.maktab.onlinequiz.dto.PersonCompletionDTO;
 import ir.maktab.onlinequiz.enums.AccountStatus;
 import ir.maktab.onlinequiz.exceptions.PreviouslyRecordedInformation;
 import ir.maktab.onlinequiz.models.Account;
 import ir.maktab.onlinequiz.models.Communication;
 import ir.maktab.onlinequiz.models.Person;
 import ir.maktab.onlinequiz.outcome.PersonCompletionOutcome;
-import ir.maktab.onlinequiz.utils.MyDate;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Locale;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    final AccountDao accountDao;
+    final AccountDAO accountDao;
+    final PersonDAO personDAO;
 
-    public PersonServiceImpl(AccountDao accountDao) {
+    public PersonServiceImpl(AccountDAO accountDao, PersonDAO personDAO) {
         this.accountDao = accountDao;
+        this.personDAO = personDAO;
     }
 
     @Override
-    public PersonCompletionOutcome completion(PersonCompletionDto personCompletionDto) throws PreviouslyRecordedInformation, ParseException {
+    public PersonCompletionOutcome completion(PersonCompletionDTO personCompletionDto) throws PreviouslyRecordedInformation, ParseException {
         Account account;
         Person person;
 

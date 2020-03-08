@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @ToString
 @AllArgsConstructor
-public class RoleDto {
-    String roleType;
+public class NewUsersIdsListDTO {
+    private String secret;
+    private List<String> listId;
 }

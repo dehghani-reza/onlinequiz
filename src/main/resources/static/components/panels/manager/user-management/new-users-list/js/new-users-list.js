@@ -1,5 +1,14 @@
 $("#new-users-list").ready(function () {
-    newUsersListFirstTime(0, 2);
+    newUsersListFirstTime(0, 10);
+});
+
+$('#pageSizeNewUsersList').change(function () {
+    var value = $(this).val();
+    if (value === null || value === "") {
+        value = 10;
+    }
+    $("#new-users-list-paging").empty();
+    newUsersListFirstTime(0, parseInt(value));
 });
 
 function newUsersListFirstTime(pageNo, pageSize) {
@@ -38,10 +47,14 @@ function newUsersListAfterFirstTime(pageNo, pageSize) {
 }
 
 function pagingTable(totalPage) {
+    var value = $("#pageSizeNewUsersList").val();
+    if (value === null || value === "") {
+        value = 10;
+    }
     let middle = '';
     if (totalPage !== 0) {
         for (let i = 0; i < totalPage; i++) {
-            middle += '<li class="page-item"><a class="page-link" onclick="newUsersListAfterFirstTime(' + i + ',2)">' + (i+1) + '</li>';
+            middle += '<li class="page-item"><a class="page-link" onclick="newUsersListAfterFirstTime(\'' + i + '\' , \'' + value + '\')">' + (i + 1) + '</li>';
         }
         $("#new-users-list-paging").append(middle);
     }

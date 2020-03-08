@@ -1,6 +1,6 @@
 package ir.maktab.onlinequiz.config.security;
 
-import ir.maktab.onlinequiz.dao.AccountDao;
+import ir.maktab.onlinequiz.dao.AccountDAO;
 import ir.maktab.onlinequiz.models.Account;
 import lombok.SneakyThrows;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +13,9 @@ import java.util.Optional;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    final AccountDao accountDao;
+    final AccountDAO accountDao;
 
-    public MyUserDetailsService(AccountDao accountDao) {
+    public MyUserDetailsService(AccountDAO accountDao) {
         this.accountDao = accountDao;
     }
 

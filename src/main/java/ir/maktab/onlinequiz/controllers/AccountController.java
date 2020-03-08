@@ -1,8 +1,9 @@
 package ir.maktab.onlinequiz.controllers;
 
-import ir.maktab.onlinequiz.dto.LoginAccountDto;
-import ir.maktab.onlinequiz.dto.NewUsersIdsList;
-import ir.maktab.onlinequiz.dto.RegisterAccountDto;
+import ir.maktab.onlinequiz.dto.AccountSearchDTO;
+import ir.maktab.onlinequiz.dto.LoginAccountDTO;
+import ir.maktab.onlinequiz.dto.NewUsersIdsListDTO;
+import ir.maktab.onlinequiz.dto.RegisterAccountDTO;
 import ir.maktab.onlinequiz.exceptions.AccountNotFoundException;
 import ir.maktab.onlinequiz.exceptions.UsernameExistInSystemException;
 import ir.maktab.onlinequiz.models.Account;
@@ -10,7 +11,7 @@ import ir.maktab.onlinequiz.outcome.LoginToAccountOutcome;
 import ir.maktab.onlinequiz.outcome.RegisterAccountOutcome;
 import ir.maktab.onlinequiz.services.AccountService;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
@@ -27,23 +28,23 @@ public class AccountController {
     }
 
     @PostMapping("/user/register")
-    private RegisterAccountOutcome register(@RequestBody RegisterAccountDto registerAccountDto) throws UsernameExistInSystemException {
+    private RegisterAccountOutcome register(@RequestBody RegisterAccountDTO registerAccountDto) throws UsernameExistInSystemException {
         return accountService.register(registerAccountDto);
     }
 
     @PostMapping("/user/login")
-    private LoginToAccountOutcome login(@RequestBody LoginAccountDto loginAccountDto) throws AccountNotFoundException {
+    private LoginToAccountOutcome login(@RequestBody LoginAccountDTO loginAccountDto) throws AccountNotFoundException {
         return accountService.login(loginAccountDto);
     }
 
     @PostMapping("/manager/accounts/{pageNo}/{pageSize}")
-    public Page<Account> getPaginatedAwaitingApprovalAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
+    private Page<Account> getPaginatedAwaitingApprovalAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
         return accountService.paginatedAwaitingApprovalAccounts(pageNo, pageSize);
     }
 
     @PostMapping("/manager/new-user-list/accept-all-selected")
-    private void acceptAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
-        accountService.acceptAllSelected(newUsersIdsList.getListId()
+    private void acceptAllSelected(@RequestBody NewUsersIdsListDTO newUsersIdsListDTO) {
+        accountService.acceptAllSelected(newUsersIdsListDTO.getListId()
                 .stream()
                 .map(Long::parseLong)
                 .collect(Collectors.toList()));
@@ -55,8 +56,8 @@ public class AccountController {
     }
 
     @PostMapping("/manager/new-user-list/dismiss-all-selected")
-    private void dismissAllSelected(@RequestBody NewUsersIdsList newUsersIdsList) {
-        accountService.dismissAllSelected(newUsersIdsList.getListId()
+    private void dismissAllSelected(@RequestBody NewUsersIdsListDTO newUsersIdsListDTO) {
+        accountService.dismissAllSelected(newUsersIdsListDTO.getListId()
                 .stream()
                 .map(Long::parseLong)
                 .collect(Collectors.toList()));
@@ -67,4 +68,8 @@ public class AccountController {
         accountService.dismissAll();
     }
 
+    @PostMapping("/manager/new-user-list/search/accounts/{pageNo}/{pageSize}")
+    private Page<Account> search(@RequestBody AccountSearchDTO accountSearchDTO, @PathVariable int pageNo, @PathVariable int pageSize) {
+        return accountService.accountSearch(accountSearchDTO, PageRequest.of(pageNo, pageSize));
+    }
 }
