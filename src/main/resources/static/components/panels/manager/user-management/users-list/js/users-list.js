@@ -1,19 +1,19 @@
-$("#new-users-list").ready(function () {
-    newUsersListFirstTime(0, 5);
+$("#users-list").ready(function () {
+    usersListFirstTime(0, 5);
 });
 
-$('#pageSizeNewUsersList').change(function () {
+$('#pageSizeUsersList').change(function () {
     var value = $(this).val();
     if (value === null || value === "") {
-        value = 5;
+        value = 10;
     }
-    $("#new-users-list-paging").empty();
-    newUsersListFirstTime(0, parseInt(value));
+    $("#users-list-paging").empty();
+    usersListFirstTime(0, parseInt(value));
 });
 
-function newUsersListFirstTime(pageNo, pageSize) {
+function usersListFirstTime(pageNo, pageSize) {
     jQuery.ajax({
-        url: "http://localhost:7777/manager/accounts/new-users-list/" + pageNo + "/" + pageSize,
+        url: "http://localhost:7777/manager/accounts/all/" + pageNo + "/" + pageSize,
         type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
@@ -29,9 +29,9 @@ function newUsersListFirstTime(pageNo, pageSize) {
     });
 }
 
-function newUsersListAfterFirstTime(pageNo, pageSize) {
+function usersListAfterFirstTime(pageNo, pageSize) {
     jQuery.ajax({
-        url: "http://localhost:7777/manager/accounts/new-users-list/" + pageNo + "/" + pageSize,
+        url: "http://localhost:7777/manager/accounts/all/" + pageNo + "/" + pageSize,
         type: "POST",
         contentType: "application/json; charset=utf-8",
         headers: {
@@ -47,23 +47,32 @@ function newUsersListAfterFirstTime(pageNo, pageSize) {
 }
 
 function pagingTable(totalPage) {
-    var value = $("#pageSizeNewUsersList").val();
+    var value = $("#pageSizeUsersList").val();
     if (value === null || value === "") {
         value = 5;
     }
     let middle = '';
     if (totalPage !== 0) {
         for (let i = 0; i < totalPage; i++) {
-            middle += '<li class="page-item"><a class="page-link" onclick="newUsersListAfterFirstTime(\'' + i + '\' , \'' + value + '\')">' + (i + 1) + '</li>';
+            middle += '<li class="page-item"><a class="page-link" onclick="usersListAfterFirstTime(\'' + i + '\' , \'' + value + '\')">' + (i + 1) + '</li>';
         }
-        $("#new-users-list-paging").append(middle);
+        $("#users-list-paging").append(middle);
     }
 }
 
 function prepareTable(data) {
     let content = '';
     for (let i = 0; i < data.length; i++) {
-        let status = 'در انتظار تایید';
+        let status = data[i].accountStatus;
+        if (status === 'ACTIVATE')
+            status = 'فعال';
+        else if (status === 'DEACTIVATE')
+            status = 'غیرفعال';
+        else if (status === 'AWAITING_APPROVAL')
+            status = 'در انتظار تایید';
+        else if (status === 'REJECTED')
+            status = 'رد شده';
+
         let role = '';
         for (let j = 0; j < data[i].roles.length; j++) {
             if (data[i].roles[j].roleType === "ROLE_STUDENT")
@@ -93,7 +102,7 @@ function prepareTable(data) {
             '<button type="button" class="btn btn-info btn-sm" onclick="showDetails(\'' + jDateFunctions.prototype.gregorian_to_jalali(createAccountDate) + '\' , \'' + email + '\' , \'' + phoneNumber + '\', \'' + cellPhoneNumber + '\', \'' + address + '\')">مشاهده</button></td>';
         content += "</tr>";
     }
-    $('#new-users-table-body').html(content);
+    $('#users-table-body').html(content);
 }
 
 function showDetails(createAccountDate, email, phoneNumber, cellPhoneNumber, address) {
@@ -140,7 +149,7 @@ function acceptAllSelected(checks) {
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
-            loadPage('new-users-list');
+            loadPage('users-list');
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -158,7 +167,7 @@ function acceptAll() {
         },
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
-            loadPage('new-users-list');
+            loadPage('users-list');
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -181,7 +190,7 @@ function dismissAllSelected(checks) {
         },
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
-            loadPage('new-users-list');
+            loadPage('users-list');
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);
@@ -199,7 +208,7 @@ function dismissAll() {
         },
         success: function (result) {
             showAlert('success', 'عملیات با موفقیت انجام شد');
-            loadPage('new-users-list');
+            loadPage('users-list');
         },
         error: function (errorMessage) {
             showAlert('danger', errorMessage.responseJSON.message);

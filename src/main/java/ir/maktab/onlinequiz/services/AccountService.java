@@ -38,4 +38,7 @@ public interface AccountService {
 
     @Secured("ROLE_MANAGER")
     Page<Account> accountSearch(AccountSearchDTO accountSearchDTO, Pageable pageable);
+
+    @Secured("ROLE_MANAGER")
+    Page<Account> paginatedAccounts(int pageNo, int pageSize);
 }

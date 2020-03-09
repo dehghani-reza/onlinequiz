@@ -172,4 +172,10 @@ public class AccountServiceImpl implements AccountService {
         accountSpecification.setAccountSearchDTO(accountSearchDTO);
         return accountDao.findAll(accountSpecification, pageable);
     }
+
+    @Override
+    public Page<Account> paginatedAccounts(int pageNo, int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        return accountDao.findAll(paging);
+    }
 }

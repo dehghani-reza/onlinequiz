@@ -1,15 +1,15 @@
-<script src="/components/panels/manager/user-management/new-users-list/js/new-users-list.js" defer></script>
-<script src="/components/panels/manager/user-management/new-users-list/js/search-new-users-list.js" defer></script>
+<script src="/components/panels/manager/user-management/users-list/js/users-list.js" defer></script>
+<script src="/components/panels/manager/user-management/users-list/js/search-users-list.js" defer></script>
 <div class="container mb-3">
     <div class="row justify-content-between">
         <div class="col-4">
             <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target=".bd-example-modal-xl">
                 جست و جو<i
                     class="fa fa-search"></i></button>
-            <button type="button" class="btn btn-primary mr-3" onclick="loadPage('new-users-list')">نمایش همه</button>
+            <button type="button" class="btn btn-primary mr-3" onclick="loadPage('users-list')">نمایش همه</button>
         </div>
         <div class="col-4">
-            <select class="custom-select float-left left" id="pageSizeNewUsersList">
+            <select class="custom-select float-left left" id="pageSizeUsersList">
                 <option value="">تعداد نمایش در هر صفحه</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -34,14 +34,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" novalidate id="searchNewUsersList">
+                <form class="needs-validation" novalidate id="searchUsersList">
                     <div class="form-row justify-content-center">
                         <div class="form-group col-2 mt-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="usernameSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="usernameSearchUsersListInput"
                                        placeholder="نام کاربری">
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="firstNameSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="firstNameSearchUsersListInput"
                                        placeholder="نام">
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="lastNameSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="lastNameSearchUsersListInput"
                                        placeholder="نام خانوادگی">
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="fathersNameSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="fathersNameSearchUsersListInput"
                                        placeholder="نام پدر">
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-id-card"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="nationalCodeSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="nationalCodeSearchUsersListInput"
                                        placeholder="کد ملی">
                             </div>
                         </div>
@@ -92,13 +92,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="degreeOfEducationSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="degreeOfEducationSearchUsersListInput"
                                        placeholder="مدرک تحصیلی">
                             </div>
                         </div>
 
                         <div class="form-group col-2 mt-3">
-                            <select class="custom-select" id="roleSearchNewUsersListInput">
+                            <select class="custom-select" id="roleSearchUsersListInput">
                                 <option value="">نوع حساب کاربری</option>
                                 <option value="ROLE_STUDENT">دانشجو</option>
                                 <option value="ROLE_TEACHER">استاد</option>
@@ -110,7 +110,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-phone-volume"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="phoneNumberSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="phoneNumberSearchUsersListInput"
                                        placeholder="تلفن ثابت">
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-mobile"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="cellPhoneNumberSearchNewUsersListInput"
+                                <input type="text" class="form-control" id="cellPhoneNumberSearchUsersListInput"
                                        placeholder="تلفن همراه">
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                                <input type="email" class="form-control" id="emailSearchNewUsersListInput"
+                                <input type="email" class="form-control" id="emailSearchUsersListInput"
                                        placeholder="ایمیل">
                             </div>
                         </div>
@@ -140,13 +140,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
                                 </div>
-                                <textarea class="form-control" id="addressSearchNewUsersListInput"
+                                <textarea class="form-control" id="addressSearchUsersListInput"
                                           placeholder="آدرس"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group col-2 mt-3">
-                            <button type="button" class="btn btn-primary" onclick="searchNewUsersListFirstTime(0, 10)"
+                            <button type="button" class="btn btn-primary" onclick="searchUsersListFirstTime(0, 10)"
                                     data-dismiss="modal">جست و جو
                             </button>
                         </div>
@@ -159,7 +159,7 @@
 </div>
 
 <form onsubmit="return submitData()">
-    <div id="new-users-list">
+    <div id="-users-list">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -173,12 +173,12 @@
                     <th scope="col">تاریخ تولد</th>
                     <th scope="col">مدرک تحصیلی</th>
                     <th scope="col">نام کاربری</th>
-                    <th scope="col">نوع حساب درخواستی</th>
+                    <th scope="col">نوع حساب</th>
                     <th scope="col">وضعیت</th>
                     <th scope="col">جزئیات</th>
                 </tr>
                 </thead>
-                <tbody id="new-users-table-body">
+                <tbody id="users-table-body">
 
                 </tbody>
             </table>
@@ -186,7 +186,7 @@
     </div>
 
     <nav>
-        <ul class="pagination justify-content-center" id="new-users-list-paging">
+        <ul class="pagination justify-content-center" id="users-list-paging">
 
         </ul>
     </nav>
@@ -245,4 +245,5 @@
         </div>
     </div>
 </div>
+
 <script src="/utils/persianCalender/persianDatepicker.js"></script>

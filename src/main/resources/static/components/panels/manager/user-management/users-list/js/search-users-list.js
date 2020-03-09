@@ -1,17 +1,17 @@
-function searchNewUsersListFirstTime(pageNo, pageSize) {
+function searchUsersListFirstTime(pageNo, pageSize) {
     const AccountSearchDTO = {
-        "username": $("#usernameSearchNewUsersListInput").val(),
-        "firstName": $("#firstNameSearchNewUsersListInput").val(),
-        "lastName": $("#lastNameSearchNewUsersListInput").val(),
-        "fathersName": $("#fathersNameSearchNewUsersListInput").val(),
-        "nationalCode": $("#nationalCodeSearchNewUsersListInput").val(),
-        "degreeOfEducation": $("#degreeOfEducationSearchNewUsersListInput").val(),
-        "phoneNumber": $("#phoneNumberSearchNewUsersListInput").val(),
-        "cellPhoneNumber": $("#cellPhoneNumberSearchNewUsersListInput").val(),
-        "email": $("#emailSearchNewUsersListInput").val(),
-        "address": $("#addressSearchNewUsersListInput").val(),
-        "role": $('#roleSearchNewUsersListInput option:selected').val(),
-        "status": 'AWAITING_APPROVAL'
+        "username": $("#usernameSearchUsersListInput").val(),
+        "firstName": $("#firstNameSearchUsersListInput").val(),
+        "lastName": $("#lastNameSearchUsersListInput").val(),
+        "fathersName": $("#fathersNameSearchUsersListInput").val(),
+        "nationalCode": $("#nationalCodeSearchUsersListInput").val(),
+        "degreeOfEducation": $("#degreeOfEducationSearchUsersListInput").val(),
+        "phoneNumber": $("#phoneNumberSearchUsersListInput").val(),
+        "cellPhoneNumber": $("#cellPhoneNumberSearchUsersListInput").val(),
+        "email": $("#emailSearchUsersListInput").val(),
+        "address": $("#addressSearchUsersListInput").val(),
+        "role": $('#roleSearchUsersListInput option:selected').val(),
+        "status": ''
     };
 
     jQuery.ajax({
@@ -23,10 +23,10 @@ function searchNewUsersListFirstTime(pageNo, pageSize) {
             "Authorization": "Basic " + btoa(usernameHeader + ":" + passwordHeader)
         },
         success: function (data, textStatus, jQxhr) {
-            $("#new-users-table-body").empty();
-            $("#new-users-list-paging").empty();
-            pagingTableResultSearchNewUsersList(JSON.parse(data.totalPages));
-            prepareTableResultSearchNewUsersList(data.content);
+            $("#-users-table-body").empty();
+            $("#-users-list-paging").empty();
+            pagingTableResultSearchUsersList(JSON.parse(data.totalPages));
+            prepareTableResultSearchUsersList(data.content);
         },
         error: function (errorMessage) {
             //alert(errorMessage)
@@ -34,20 +34,20 @@ function searchNewUsersListFirstTime(pageNo, pageSize) {
     });
 }
 
-function searchNewUsersListAfterFirstTime(pageNo, pageSize) {
+function searchUsersListAfterFirstTime(pageNo, pageSize) {
     const AccountSearchDTO = {
-        "username": $("#usernameSearchNewUsersListInput").val(),
-        "firstName": $("#firstNameSearchNewUsersListInput").val(),
-        "lastName": $("#lastNameSearchNewUsersListInput").val(),
-        "fathersName": $("#fathersNameSearchNewUsersListInput").val(),
-        "nationalCode": $("#nationalCodeSearchNewUsersListInput").val(),
-        "degreeOfEducation": $("#degreeOfEducationSearchNewUsersListInput").val(),
-        "phoneNumber": $("#phoneNumberSearchNewUsersListInput").val(),
-        "cellPhoneNumber": $("#cellPhoneNumberSearchNewUsersListInput").val(),
-        "email": $("#emailSearchNewUsersListInput").val(),
-        "address": $("#addressSearchNewUsersListInput").val(),
-        "role": $('#roleSearchNewUsersListInput option:selected').val(),
-        "status": 'AWAITING_APPROVAL'
+        "username": $("#usernameSearchUsersListInput").val(),
+        "firstName": $("#firstNameSearchUsersListInput").val(),
+        "lastName": $("#lastNameSearchUsersListInput").val(),
+        "fathersName": $("#fathersNameSearchUsersListInput").val(),
+        "nationalCode": $("#nationalCodeSearchUsersListInput").val(),
+        "degreeOfEducation": $("#degreeOfEducationSearchUsersListInput").val(),
+        "phoneNumber": $("#phoneNumberSearchUsersListInput").val(),
+        "cellPhoneNumber": $("#cellPhoneNumberSearchUsersListInput").val(),
+        "email": $("#emailSearchUsersListInput").val(),
+        "address": $("#addressSearchUsersListInput").val(),
+        "role": $('#roleSearchUsersListInput option:selected').val(),
+        "status": ''
     };
     jQuery.ajax({
         url: "http://localhost:7777/manager/users-list/search/accounts/" + pageNo + "/" + pageSize,
@@ -66,17 +66,17 @@ function searchNewUsersListAfterFirstTime(pageNo, pageSize) {
     });
 }
 
-function pagingTableResultSearchNewUsersList(totalPage) {
+function pagingTableResultSearchUsersList(totalPage) {
     let middle = '';
     if (totalPage !== 0) {
         for (let i = 0; i < totalPage; i++) {
-            middle += '<li class="page-item"><a class="page-link" onclick="searchNewUsersListAfterFirstTime(' + i + ',10)">' + (i + 1) + '</li>';
+            middle += '<li class="page-item"><a class="page-link" onclick="searchUsersListAfterFirstTime(' + i + ',10)">' + (i + 1) + '</li>';
         }
-        $("#new-users-list-paging").append(middle);
+        $("#users-list-paging").append(middle);
     }
 }
 
-function prepareTableResultSearchNewUsersList(data) {
+function prepareTableResultSearchUsersList(data) {
     let content = '';
     for (let i = 0; i < data.length; i++) {
         let status = 'در انتظار تایید';
@@ -92,7 +92,7 @@ function prepareTableResultSearchNewUsersList(data) {
         let phoneNumber = data[i].person.communication.phoneNumber;
         let cellPhoneNumber = data[i].person.communication.cellPhoneNumber;
         let address = data[i].person.communication.address;
-        var birthOfDate = new Date(data[i].person.birthOfDate);
+        var birthOfDate =  new Date(data[i].person.birthOfDate);
         content += "<tr>";
         content += "<td class='text-center'><input class='form-check-input' type='checkbox' value='" + data[i].id + "'></td>";
         content += "<td>" + data[i].id + "</td>";
@@ -109,7 +109,7 @@ function prepareTableResultSearchNewUsersList(data) {
             '<button type="button" class="btn btn-info btn-sm" onclick="showDetails(\'' + jDateFunctions.prototype.gregorian_to_jalali(createAccountDate) + '\' , \'' + email + '\' , \'' + phoneNumber + '\', \'' + cellPhoneNumber + '\', \'' + address + '\')">مشاهده</button></td>';
         content += "</tr>";
     }
-    $('#new-users-table-body').html(content);
+    $('#users-table-body').html(content);
 }
 
 function showDetails(createAccountDate, email, phoneNumber, cellPhoneNumber, address) {

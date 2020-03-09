@@ -19,4 +19,5 @@ public class AccountSearchDTO {
     private String address;
     private String email;
     private String role;
+    private String status;
 }

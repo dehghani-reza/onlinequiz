@@ -41,7 +41,7 @@ public class AccountSpecification implements Specification<Account> {
         setAddress(root, criteriaBuilder, predicates, accountSearchDTO.getAddress());
         setEmail(root, criteriaBuilder, predicates, accountSearchDTO.getEmail());
         setRole(root, criteriaBuilder, predicates, accountSearchDTO.getRole());
-        predicates.add(criteriaBuilder.equal(root.get("accountStatus"), AccountStatus.AWAITING_APPROVAL));
+        setStatus(root, criteriaBuilder, predicates, accountSearchDTO.getStatus());
     }
 
     private void setUsername(Root<Account> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, String username) {
@@ -81,7 +81,7 @@ public class AccountSpecification implements Specification<Account> {
     private void setDegreeOfEducation(Root<Account> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, String degreeOfEducation) {
         if (degreeOfEducation != null && !degreeOfEducation.isEmpty()) {
             Join<Account, Person> accountPersonJoin = root.join("person");
-            predicates.add(criteriaBuilder.like(accountPersonJoin.get("degreeOfEducation"), "%" + degreeOfEducation.trim() + "%"));
+            predicates.add(criteriaBuilder.equal(accountPersonJoin.get("degreeOfEducation"), degreeOfEducation));
         }
     }
 
@@ -121,6 +121,12 @@ public class AccountSpecification implements Specification<Account> {
         if (role != null && !role.isEmpty()) {
             Join<Account, Role> accountRoleJoin = root.join("roles");
             predicates.add(criteriaBuilder.equal(accountRoleJoin.get("roleType"), RoleTypes.valueOf(role)));
+        }
+    }
+
+    private void setStatus(Root<Account> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, String status) {
+        if (status != null && !status.isEmpty()) {
+            predicates.add(criteriaBuilder.equal(root.get("accountStatus"), AccountStatus.valueOf(accountSearchDTO.getStatus())));
         }
     }
 }

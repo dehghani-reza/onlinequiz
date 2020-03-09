@@ -37,7 +37,7 @@ public class AccountController {
         return accountService.login(loginAccountDto);
     }
 
-    @PostMapping("/manager/accounts/{pageNo}/{pageSize}")
+    @PostMapping("/manager/accounts/new-users-list/{pageNo}/{pageSize}")
     private Page<Account> getPaginatedAwaitingApprovalAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
         return accountService.paginatedAwaitingApprovalAccounts(pageNo, pageSize);
     }
@@ -68,8 +68,13 @@ public class AccountController {
         accountService.dismissAll();
     }
 
-    @PostMapping("/manager/new-user-list/search/accounts/{pageNo}/{pageSize}")
+    @PostMapping("/manager/users-list/search/accounts/{pageNo}/{pageSize}")
     private Page<Account> search(@RequestBody AccountSearchDTO accountSearchDTO, @PathVariable int pageNo, @PathVariable int pageSize) {
         return accountService.accountSearch(accountSearchDTO, PageRequest.of(pageNo, pageSize));
+    }
+
+    @PostMapping("/manager/accounts/all/{pageNo}/{pageSize}")
+    private Page<Account> getPaginatedAccounts(@PathVariable int pageNo, @PathVariable int pageSize) {
+        return accountService.paginatedAccounts(pageNo, pageSize);
     }
 }

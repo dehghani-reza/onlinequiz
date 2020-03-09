@@ -26,11 +26,8 @@ function loadPage(page) {
         $('#app-content-load').load('/components/panels/manager/user-management/new-users-list/new-users-list.html');
     }
 
-    if (page === 'search-new-users-list') {
-        $('#app-content-load').load('/components/panels/manager/user-management/search-new-users-list/search-new-users-list.html');
-    }
-    if (page === 'result-search-new-users-list') {
-        $('#app-content-load').load('/components/panels/manager/user-management/search-new-users-list/result-search-new-users-list.html');
+    if (page === 'users-list') {
+        $('#app-content-load').load('/components/panels/manager/user-management/users-list/users-list.html');
     }
 }
 
